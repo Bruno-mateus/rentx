@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import createCategoryController from '../modules/cars/useCases/CreateCategory/index';
-import { importCategoryController } from '../modules/cars/useCases/ImportCategory/index';
-import { listCategoryController } from '../modules/cars/useCases/ListCategories';
+import CreateCategoryController from '../modules/cars/useCases/CreateCategory/CreateCategoryController';
+import ImportCategoryController from '../modules/cars/useCases/ImportCategory/ImportCategoryController';
+import ListCategoriesController from '../modules/cars/useCases/ListCategories/ListCategoriesController';
 // upload com pasta de arquivos temporario
 const upload = multer({
   dest: './temp',
@@ -11,11 +11,19 @@ const upload = multer({
 
 const categoriesRoutes = Router();
 
+const createCategoryController = new CreateCategoryController()
+
+const importCategoryController = new ImportCategoryController()
+
+const listCategoryController = new ListCategoriesController()
+
+categoriesRoutes.post('/', createCategoryController.handle);
+
+
 // (single) -> upload de apenas um arquivo
-categoriesRoutes.post('/import', upload.single('file'), (req, res) => importCategoryController.handle(req, res));
+categoriesRoutes.post('/categories/import', upload.single('file'), importCategoryController.handle);
 
-categoriesRoutes.post('/', (req, res) => createCategoryController().handle(req, res));
 
-categoriesRoutes.get('/', (req, res) => listCategoryController.handle(req, res));
+categoriesRoutes.get('/', listCategoryController.handle);
 
 export default categoriesRoutes;
