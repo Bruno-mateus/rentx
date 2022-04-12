@@ -1,6 +1,7 @@
 import { parse } from 'csv-parse';
 import fs from 'fs';
 import { injectable, inject } from 'tsyringe';
+import AppError from '../../../../errors/AppError';
 
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 
@@ -68,7 +69,7 @@ export default class ImportCategoryUseCase {
         });
       }
 
-      if (existCategory) throw new Error("Category already exists")
+      if (existCategory) throw new AppError("Category already exists")
     });
 
 

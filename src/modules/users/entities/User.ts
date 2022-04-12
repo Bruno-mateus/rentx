@@ -6,7 +6,7 @@ class User {
   @PrimaryColumn()
   id?: string;
   @Column()
-  username: string;
+  name: string;
   @Column()
   password: string;
   @Column()
