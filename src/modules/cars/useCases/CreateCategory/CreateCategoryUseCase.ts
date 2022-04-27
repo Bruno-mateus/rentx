@@ -1,9 +1,8 @@
-import { inject, injectable } from "tsyringe"
+// eslint-disable-next-line quotes
+import { inject, injectable } from "tsyringe";
 
+import AppError from '../../../../errors/AppError';
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
-import AppError from "../../../../errors/AppError";
-
-
 
 interface IRequest {
   name: string;
@@ -12,8 +11,8 @@ interface IRequest {
 @injectable()
 export default class CreateCategoryUseCase {
   constructor(
-    @inject("CategoriesRepository")
-    private categoriesRepository: ICategoriesRepository
+    @inject('CategoriesRepository')
+    private categoriesRepository: ICategoriesRepository,
   ) { }
 
   async execute({ name, description }: IRequest): Promise<void> {
