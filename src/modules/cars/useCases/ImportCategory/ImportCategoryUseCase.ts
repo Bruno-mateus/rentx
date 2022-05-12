@@ -1,9 +1,9 @@
 import { parse } from 'csv-parse';
 import fs from 'fs';
 import { injectable, inject } from 'tsyringe';
-import AppError from '../../../../errors/AppError';
 
-import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
+import AppError from '../../../../shared/errors/AppError';
+import { ICategoriesRepository } from '../../infra/typeorm/repositories/ICategoriesRepository';
 
 // formato de array que receberei
 
@@ -14,8 +14,9 @@ interface IImportCategories {
 @injectable()
 export default class ImportCategoryUseCase {
   constructor(
-    @inject("CategoriesRepository")
-    private categoriesRepository: ICategoriesRepository) { }
+    @inject('CategoriesRepository')
+    private categoriesRepository: ICategoriesRepository,
+  ) { }
   // a promise retornara um array de categories
   loadCategories(file: Express.Multer.File): Promise<IImportCategories[]> {
     return new Promise((resolve, reject) => {
@@ -60,8 +61,6 @@ export default class ImportCategoryUseCase {
 
       const existCategory = await this.categoriesRepository.findByName(name);
 
-
-
       if (!existCategory) {
         await this.categoriesRepository.create({
           name,
@@ -69,9 +68,7 @@ export default class ImportCategoryUseCase {
         });
       }
 
-      if (existCategory) throw new AppError("Category already exists")
+      if (existCategory) throw new AppError('Category already exists');
     });
-
-
   }
 }

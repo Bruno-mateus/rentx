@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
-import AppError from '../../../../errors/AppError';
-import { ISpecificationRepository } from '../../repositories/ISpecificationRepository';
+
+import AppError from '../../../../shared/errors/AppError';
+import { ISpecificationRepository } from '../../infra/typeorm/repositories/ISpecificationRepository';
 
 // sera recebido da requisição
 interface IRequest {
@@ -10,10 +11,10 @@ interface IRequest {
 
 @injectable()
 export default class CreateSpecificationUseCase {
-
   constructor(
-    @inject("SpecificationRepository")
-    private specificationRepository: ISpecificationRepository) { }
+    @inject('SpecificationRepository')
+    private specificationRepository: ISpecificationRepository,
+  ) { }
   // quando uma funçao n vai retornar nada se usa o void
 
   async execute({ name, description }: IRequest): Promise<void> {

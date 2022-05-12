@@ -1,23 +1,23 @@
-import { container } from "tsyringe"
+import { container } from 'tsyringe';
 
-import { ICategoriesRepository } from '../../modules/cars/repositories/ICategoriesRepository'
-import { ISpecificationRepository } from "../../modules/cars/repositories/ISpecificationRepository"
-import { IUserRepository } from "../../modules/users/repositories/IUserRepository"
-import SpecificationRepository from "../../modules/cars/repositories/implementations/SpecificationRepository"
-import { CategoriesRepository } from "../../modules/cars/repositories/implementations/CategoriesRepository"
-import { UserRepository } from "../../modules/users/repositories/implemetentios/UserRepository"
+import { ICategoriesRepository } from '../../modules/cars/infra/typeorm/repositories/ICategoriesRepository';
+import { ISpecificationRepository } from '../../modules/cars/infra/typeorm/repositories/ISpecificationRepository';
+import { CategoriesRepository } from '../../modules/cars/repositories/implementations/CategoriesRepository';
+import SpecificationRepository from '../../modules/cars/repositories/implementations/SpecificationRepository';
+import { IUserRepository } from '../../modules/users/infra/typeorm/repositories/IUserRepository';
+import { UserRepository } from '../../modules/users/repositories/implemetentios/UserRepository';
 
 container.registerSingleton<ICategoriesRepository>(
-  "CategoriesRepository",
-  CategoriesRepository
-)
+  'CategoriesRepository',
+  CategoriesRepository,
+);
 
 container.registerSingleton<ISpecificationRepository>(
-  "SpecificationRepository",
-  SpecificationRepository
-)
+  'SpecificationRepository',
+  SpecificationRepository,
+);
 
 container.registerSingleton<IUserRepository>(
-  "UserRepository",
-  UserRepository
-)
+  'UserRepository',
+  UserRepository,
+);
