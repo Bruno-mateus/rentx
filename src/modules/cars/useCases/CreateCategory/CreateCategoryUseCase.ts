@@ -1,8 +1,8 @@
 // eslint-disable-next-line quotes
 import { inject, injectable } from "tsyringe";
 
-import AppError from '../../../../errors/AppError';
-import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
+import AppError from '../../../../shared/errors/AppError';
+import { ICategoriesRepository } from '../../infra/typeorm/repositories/ICategoriesRepository';
 
 interface IRequest {
   name: string;

@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 export default interface IUserRepositoryDTO {
   name: string
   email: string
