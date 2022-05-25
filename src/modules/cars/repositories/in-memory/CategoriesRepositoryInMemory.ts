@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
-import { Category } from '../../../infra/typeorm/entities/Category';
-import { ICategoriesRepository, ICreateCategoryDTO } from '../../../infra/typeorm/repositories/ICategoriesRepository';
+import { Category } from '../../infra/typeorm/entities/Category';
+import { ICategoriesRepository, ICreateCategoryDTO } from '../ICategoriesRepository';
 // eslint-disable-next-line linebreak-style
 
 export class CategoriesRepositoryInMemory implements ICategoriesRepository {

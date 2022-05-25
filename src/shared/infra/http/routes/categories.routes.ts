@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import CreateCategoryController from '../../../../modules/cars/useCases/CreateCategory/CreateCategoryController';
-import ImportCategoryController from '../../../../modules/cars/useCases/ImportCategory/ImportCategoryController';
-import ListCategoriesController from '../../../../modules/cars/useCases/ListCategories/ListCategoriesController';
+import CreateCategoryController from '../../../../modules/cars/UseCases/CreateCategory/CreateCategoryController';
+import ImportCategoryController from '../../../../modules/cars/UseCases/ImportCategory/ImportCategoryController';
+import ListCategoriesController from '../../../../modules/cars/UseCases/ListCategories/ListCategoriesController';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 // upload com pasta de arquivos temporario
 const upload = multer({
