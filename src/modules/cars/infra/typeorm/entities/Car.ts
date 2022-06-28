@@ -1,10 +1,11 @@
 /* eslint-disable indent */
 import {
-  Entity, Column, PrimaryColumn, CreateDateColumn, JoinColumn, ManyToOne,
+  Entity, Column, PrimaryColumn, CreateDateColumn, JoinColumn, ManyToOne, ManyToMany, JoinTable,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 import { Category } from './Category';
+import Specification from './Specification';
 
 @Entity('cars')
 export class Car {
@@ -22,6 +23,13 @@ export class Car {
   fine_amount: number;
   @Column()
   brand: string;
+  @ManyToMany(() => Specification)
+  @JoinTable({
+    name: 'specification_cars',
+    joinColumns: [{ name: 'car_id' }],
+    inverseJoinColumns: [{ name: 'specification_id' }],
+  })
+  specifications: Specification[];
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
   category: Category;

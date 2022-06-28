@@ -12,4 +12,4 @@ router.use('/categories', catergoriesRoutes);
 router.use('/specification', specificationRoutes);
 router.use('/user', userRoutes);
 router.use(authenticateRoutes); // /sessions
-router.use('/car', carsRoutes);
+router.use('/cars', carsRoutes);

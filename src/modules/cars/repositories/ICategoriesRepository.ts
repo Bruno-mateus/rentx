@@ -1,3 +1,4 @@
+import { Car } from '../infra/typeorm/entities/Car';
 import { Category } from '../infra/typeorm/entities/Category';
 
 interface ICreateCategoryDTO {

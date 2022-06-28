@@ -1,6 +1,6 @@
 import IUserRepositoryDTO from '../../../dtos/IUserRepositoryDTO';
 import { User } from '../../../infra/typeorm/entities/User';
-import { IUserRepository } from '../../../infra/typeorm/repositories/IUserRepository';
+import { IUserRepository } from '../../../repositories/implementations/IUserRepository';
 
 export class UserRepositoryInMemory implements IUserRepository {
   users: User[] = [];
