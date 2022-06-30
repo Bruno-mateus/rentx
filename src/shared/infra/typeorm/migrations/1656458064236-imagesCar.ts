@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class ImageCar1656398418661 implements MigrationInterface {
+export class imagesCar1656458064236 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "image_car",
+                name: "images_car",
                 columns: [
                     {
                         name: 'id',
@@ -22,7 +22,8 @@ export class ImageCar1656398418661 implements MigrationInterface {
                     },
                     {
                         name: "created_at",
-                        type: 'varchar'
+                        type: 'timestamp',
+                        default: 'now()',
                     }
                 ],
                 foreignKeys: [
@@ -40,6 +41,6 @@ export class ImageCar1656398418661 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('images_car')
     }
-
 }
