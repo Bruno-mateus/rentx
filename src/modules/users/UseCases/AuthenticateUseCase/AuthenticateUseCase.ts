@@ -3,7 +3,7 @@ import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '../../../../shared/errors/AppError';
-import { IUserRepository } from '../../infra/typeorm/repositories/IUserRepository';
+import { IUserRepository } from '../../repositories/implementations/IUserRepository';
 
 interface IRequest {
   email: string;

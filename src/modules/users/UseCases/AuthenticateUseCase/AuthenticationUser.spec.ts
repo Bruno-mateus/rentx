@@ -1,6 +1,6 @@
 import AppError from '../../../../shared/errors/AppError';
 import IUserRepositoryDTO from '../../dtos/IUserRepositoryDTO';
-import { UserRepositoryInMemory } from '../../repositories/implemetentios/in-memory/UserRepositoryInMemory';
+import { UserRepositoryInMemory } from '../../repositories/implementations/in-memory/UserRepositoryInMemory';
 import { CreateUserUseCase } from '../CreateUser/CreateUserUseCase';
 import { AuthenticateUseCase } from './AuthenticateUseCase';
 

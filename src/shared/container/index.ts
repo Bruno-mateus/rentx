@@ -1,11 +1,16 @@
 import { container } from 'tsyringe';
 
-import { ICategoriesRepository } from '../../modules/cars/infra/typeorm/repositories/ICategoriesRepository';
-import { ISpecificationRepository } from '../../modules/cars/infra/typeorm/repositories/ISpecificationRepository';
-import { CategoriesRepository } from '../../modules/cars/repositories/implementations/CategoriesRepository';
-import SpecificationRepository from '../../modules/cars/repositories/implementations/SpecificationRepository';
-import { IUserRepository } from '../../modules/users/infra/typeorm/repositories/IUserRepository';
-import { UserRepository } from '../../modules/users/repositories/implemetentios/UserRepository';
+import { CarsRepository } from '../../modules/cars/infra/typeorm/repositories/CarsRepository';
+import { CategoriesRepository } from '../../modules/cars/infra/typeorm/repositories/CategoriesRepository';
+import SpecificationRepository from '../../modules/cars/infra/typeorm/repositories/SpecificationRepository';
+import { ICarsRepository } from '../../modules/cars/repositories/ICarsRepository';
+import { ICategoriesRepository } from '../../modules/cars/repositories/ICategoriesRepository';
+import { ISpecificationRepository } from '../../modules/cars/repositories/ISpecificationRepository';
+import { IUserRepository } from '../../modules/users/repositories/implementations/IUserRepository';
+import { UserRepository } from '../../modules/users/infra/typeorm/repositories/UserRepository';
+import { ICarsImageRepository } from '../../modules/cars/repositories/ICarsImageRepository';
+import { CarImageRepository } from '../../modules/cars/infra/typeorm/repositories/CarImageRepository'
+
 
 container.registerSingleton<ICategoriesRepository>(
   'CategoriesRepository',
@@ -21,3 +26,12 @@ container.registerSingleton<IUserRepository>(
   'UserRepository',
   UserRepository,
 );
+container.registerSingleton<ICarsRepository>(
+  'CarsRepository',
+  CarsRepository,
+);
+
+container.registerSingleton<ICarsImageRepository>(
+  'CarsImageRepository',
+  CarImageRepository
+)

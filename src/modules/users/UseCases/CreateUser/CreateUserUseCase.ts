@@ -3,7 +3,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '../../../../shared/errors/AppError';
 import IUserRepositoryDTO from '../../dtos/IUserRepositoryDTO';
-import { IUserRepository } from '../../infra/typeorm/repositories/IUserRepository';
+import { IUserRepository } from '../../repositories/implementations/IUserRepository';
 
 @injectable()
 class CreateUserUseCase {

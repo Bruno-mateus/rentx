@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import multer from 'multer';
 
-import CreateCategoryController from '../../../../modules/cars/useCases/CreateCategory/CreateCategoryController';
-import ImportCategoryController from '../../../../modules/cars/useCases/ImportCategory/ImportCategoryController';
-import ListCategoriesController from '../../../../modules/cars/useCases/ListCategories/ListCategoriesController';
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import CreateCategoryController from '../../../../modules/cars/UseCases/CreateCategory/CreateCategoryController';
+import ImportCategoryController from '../../../../modules/cars/UseCases/ImportCategory/ImportCategoryController';
+import ListCategoriesController from '../../../../modules/cars/UseCases/ListCategories/ListCategoriesController';
+import { ensureAdmin } from '../middlewares/ensureAdmin';
+import ensureAutheticated from '../middlewares/ensureAuthenticated';
 // upload com pasta de arquivos temporario
 const upload = multer({
   dest: './temp',
@@ -18,13 +19,12 @@ const importCategoryController = new ImportCategoryController();
 
 const listCategoryController = new ListCategoriesController();
 
-categoriesRoutes.post('/', createCategoryController.handle);
+categoriesRoutes.post('/', ensureAutheticated, ensureAdmin, createCategoryController.handle);
 
-// test
-categoriesRoutes.use(ensureAuthenticated);
+
 
 // (single) -> upload de apenas um arquivo
-categoriesRoutes.post('/categories/import', upload.single('file'), importCategoryController.handle);
+categoriesRoutes.post('/categories/import', ensureAutheticated, ensureAdmin, upload.single('file'), importCategoryController.handle);
 
 categoriesRoutes.get('/', listCategoryController.handle);
 

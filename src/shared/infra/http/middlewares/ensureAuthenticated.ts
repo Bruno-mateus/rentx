@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
 
-import { UserRepository } from '../../../../modules/users/repositories/implemetentios/UserRepository';
+import { UserRepository } from '../../../../modules/users/infra/typeorm/repositories/UserRepository';
 import AppError from '../../../errors/AppError';
 
 interface IPayload {
@@ -31,7 +31,7 @@ export default function ensureAutheticated(req: Request, res: Response, next: Ne
     // if user not exist
     if (!user) throw new AppError('User does not exists', 401);
 
-    console.log(user_id);
+
 
     req.user = {
       id: user_id,

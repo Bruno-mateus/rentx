@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+// eslint-disable-next-line import-helpers/order-imports
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 
@@ -6,11 +7,12 @@ import swaggerUI from 'swagger-ui-express';
 
 import swaggerFile from '../../../swagger.json';
 import AppError from '../../errors/AppError';
+import createConnection from '../typeorm';
 import { router } from './routes';
 
-import '../typeorm';
 import '../../container';
 
+createConnection();
 const app = express();
 
 app.use(express.json());
@@ -27,6 +29,7 @@ app.use(
 
       });
     }
+    console.log(err)
     // default app error
     return res.status(500).json({
       status: 'error',

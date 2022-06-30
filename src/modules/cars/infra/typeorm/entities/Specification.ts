@@ -5,7 +5,7 @@ import {
 import { v4 as uuid } from 'uuid';
 
 @Entity('specifications')
-export default class Category {
+export default class Specification {
   @PrimaryColumn()
   id?: string;
   @Column()

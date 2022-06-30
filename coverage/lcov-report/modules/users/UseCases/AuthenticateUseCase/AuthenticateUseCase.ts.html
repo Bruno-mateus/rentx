@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>59/59</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>59/59</span>
+                <span class='fraction'>53/53</span>
             </div>
         
             
@@ -116,13 +116,7 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -153,38 +147,34 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { compare } from "bcryptjs";
-import { sign } from "jsonwebtoken";
-import { inject, injectable } from "tsyringe";
-import AppError from "../../../../errors/AppError";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { compare } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
+import { inject, injectable } from 'tsyringe';
 &nbsp;
-import { IUserRepository } from "../../repositories/IUserRepository"
+import AppError from '../../../../shared/errors/AppError';
+import { IUserRepository } from '../../infra/typeorm/repositories/IUserRepository';
 &nbsp;
 interface IRequest {
   email: string;
@@ -201,50 +191,45 @@ interface IResponse {
 &nbsp;
 @injectable()
 export class AuthenticateUseCase {
-&nbsp;
   constructor(
-    @inject("UserRepository")
-    private userRepository: IUserRepository
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
   ) { }
 &nbsp;
   async execute({ email, password }: IRequest): Promise&lt;IResponse&gt; {
+    const user = await this.userRepository.findByEmail(email);
+    // verify account
+    if (!user) throw new AppError('Email or password is incorrect');
 &nbsp;
-    const user = await this.userRepository.findByEmail(email)
-    //verify account
-    if (!user) throw new AppError("Email or password is incorrect");
+    // verfify password
+    const passwordMatch = await compare(password, user.password);
+    if (!passwordMatch) <span class="branch-0 cbranch-no" title="branch not covered" >throw new AppError('Email or password is incorrect');</span>
 &nbsp;
-    //verfify password
-    const passwordMatch = await compare(password, user.password)
-    if (!passwordMatch) <span class="branch-0 cbranch-no" title="branch not covered" >throw new AppError("Email or password is incorrect")</span>
-&nbsp;
-&nbsp;
-    //generate web token
-    const token = sign({}, "5b0e01be99a81e2ce09078ec74433890", {
+    // generate web token
+    const token = sign({}, '5b0e01be99a81e2ce09078ec74433890', {
       subject: user.id,
-      expiresIn: "1d"
-    })
+      expiresIn: '1d',
+    });
 &nbsp;
     const tokenReturn: IResponse = {
       token,
       user: {
         name: user.name,
-        email: user.email
-      }
-    }
+        email: user.email,
+      },
+    };
 &nbsp;
-    return tokenReturn
-&nbsp;
+    return tokenReturn;
   }
-&nbsp;
-&nbsp;
-}</pre></td></tr></table></pre>
+}
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Tue May 10 2022 22:19:27 GMT-0300 (Brasilia Standard Time)
+                at Wed Jun 22 2022 04:42:32 GMT-0300 (Brasilia Standard Time)
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
