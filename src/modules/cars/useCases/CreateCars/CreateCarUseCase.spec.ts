@@ -65,7 +65,7 @@ describe('Create Car', () => {
         category_id: 'sport',
       },
     );
-    console.log(car);
+
 
     expect(car.available).toBe(true);
   });
