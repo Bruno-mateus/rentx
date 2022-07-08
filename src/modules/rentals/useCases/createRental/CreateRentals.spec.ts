@@ -3,10 +3,12 @@ import { DayjsDateProvider } from "../../../../shared/provider/dateProvider/impl
 import AppError from "../../../../shared/errors/AppError"
 import { RentalsRepositoryInMemory } from "../../infra/typeorm/repositories/in-memory/RentalsRepositoryInMemory"
 import { CreateRentalUseCase } from "./CreateRentalUseCase"
+import { CarsRepositoryInMemory } from "../../../cars/repositories/in-memory/CarsRepositoryInMemory"
 
 let rentalsRepositoryInMemory: RentalsRepositoryInMemory
 let createRentalUseCase: CreateRentalUseCase
 let dayjsDateProvider: DayjsDateProvider
+let carsRepositoryInMemory: CarsRepositoryInMemory
 describe('Create Rental', () => {
   //add 1 day for compare teste
   const dayAdd24Hours = dayjs().add(1, 'day').toDate()
@@ -14,7 +16,8 @@ describe('Create Rental', () => {
   beforeEach(() => {
     rentalsRepositoryInMemory = new RentalsRepositoryInMemory;
     dayjsDateProvider = new DayjsDateProvider()
-    createRentalUseCase = new CreateRentalUseCase(rentalsRepositoryInMemory, dayjsDateProvider)
+    carsRepositoryInMemory = new CarsRepositoryInMemory()
+    createRentalUseCase = new CreateRentalUseCase(rentalsRepositoryInMemory, dayjsDateProvider, carsRepositoryInMemory)
   })
   it('should be able create a new rental', async () => {
     const rental = await createRentalUseCase.execute({
