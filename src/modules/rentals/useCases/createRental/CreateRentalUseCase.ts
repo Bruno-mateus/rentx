@@ -31,7 +31,7 @@ export class CreateRentalUseCase {
     //The rental must have a minimum duration of 24 hours
     //current date
     const dateNow = this.dayjsDateProvider.dateNow()
-    //compare difference between dates in time format
+    //compare difference between dates in time formats
     const compare = this.dayjsDateProvider.compareInHours(dateNow, expected_return_date)
 
     if (compare < 24) throw new AppError('minimum allowable rental date is 24 hours')
