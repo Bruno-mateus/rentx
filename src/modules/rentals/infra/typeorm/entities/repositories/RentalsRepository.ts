@@ -9,6 +9,7 @@ export class RentalsRepository implements IRentalRepository {
   constructor() {
     this.repository = getRepository(Rental)
   }
+
   async findOpenRentalCar(car_id: string): Promise<Rental> {
 
     return await this.repository.findOne({ car_id });
@@ -21,6 +22,10 @@ export class RentalsRepository implements IRentalRepository {
     const rental = this.repository.create(data)
     await this.repository.save(rental)
     return rental
+  }
+
+  async findById(id: string): Promise<Rental> {
+    return await this.repository.findOne(id)
   }
 
 }
