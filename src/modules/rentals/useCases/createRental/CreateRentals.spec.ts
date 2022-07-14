@@ -4,8 +4,9 @@ import AppError from "../../../../shared/errors/AppError"
 import { RentalsRepositoryInMemory } from "../../infra/typeorm/repositories/in-memory/RentalsRepositoryInMemory"
 import { CreateRentalUseCase } from "./CreateRentalUseCase"
 import { CarsRepositoryInMemory } from "../../../cars/repositories/in-memory/CarsRepositoryInMemory"
+import { IRentalRepository } from "../../infra/typeorm/repositories/IRentalRepository"
 
-let rentalsRepositoryInMemory: RentalsRepositoryInMemory
+let rentalsRepositoryInMemory: IRentalRepository
 let createRentalUseCase: CreateRentalUseCase
 let dayjsDateProvider: DayjsDateProvider
 let carsRepositoryInMemory: CarsRepositoryInMemory
@@ -14,7 +15,7 @@ describe('Create Rental', () => {
   const dayAdd24Hours = dayjs().add(1, 'day').toDate()
 
   beforeEach(() => {
-    rentalsRepositoryInMemory = new RentalsRepositoryInMemory;
+    rentalsRepositoryInMemory = new RentalsRepositoryInMemory();
     dayjsDateProvider = new DayjsDateProvider()
     carsRepositoryInMemory = new CarsRepositoryInMemory()
     createRentalUseCase = new CreateRentalUseCase(rentalsRepositoryInMemory, dayjsDateProvider, carsRepositoryInMemory)

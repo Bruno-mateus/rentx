@@ -5,6 +5,9 @@ import { IRentalRepository } from "../IRentalRepository";
 
 
 export class RentalsRepositoryInMemory implements IRentalRepository {
+  findById(id: string): Promise<Rental> {
+    throw new Error("Method not implemented.");
+  }
   rentals: Rental[] = []
   //  a car that is alredy rented will not be rented again
   async findOpenRentalCar(car_id: string): Promise<Rental> {

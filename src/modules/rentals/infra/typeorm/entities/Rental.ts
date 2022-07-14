@@ -1,4 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { ColumnNumericTransformer } from '../../../../../utils/ColumnNumericTransformer';
 import { v4 as uuid } from 'uuid'
 @Entity('rentals')
 export class Rental {
@@ -15,8 +16,12 @@ export class Rental {
   end_date?: Date;
   @Column()
   expected_return_date: Date;
-  @Column()
-  total: number;
+  @Column('numeric', {
+    precision: 7,
+    scale: 2,
+    transformer: new ColumnNumericTransformer(),
+  })
+  public total: number;
   @CreateDateColumn()
   created_at: Date;
   @UpdateDateColumn()
