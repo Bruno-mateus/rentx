@@ -25,8 +25,7 @@ export class DevolutionUseCase {
   async execute({ id, user_id }: IRequest): Promise<Rental> {
 
     const rental = await this.rentalsRepository.findById(id)
-    const car = await this.carsRepository.findById(id)
-
+    const car = await this.carsRepository.findById(rental.car_id)
 
     const minimum_daily = 1;
 
@@ -40,7 +39,7 @@ export class DevolutionUseCase {
     if (daily < 1) daily = minimum_daily
 
     //fine for late days
-    const delay = this.dateProvider.compareInDay(dateNow, rental.expected_return_date)
+    const delay = this.dateProvider.compareInDay(dateNow, rental.start_date)
 
     let total = 0
     if (delay > 0) {
@@ -49,6 +48,8 @@ export class DevolutionUseCase {
     }
 
     total += daily * car.daily_rate;
+    rental.end_date = this.dateProvider.dateNow()
+
     rental.total = total
 
     //update rental

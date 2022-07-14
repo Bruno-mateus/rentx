@@ -36,9 +36,9 @@ export class CreateRentalUseCase {
 
     if (compare < 24) throw new AppError('minimum allowable rental date is 24 hours')
 
-    const rental = this.rentalRepository.create({ car_id, user_id, expected_return_date })
+    const rental = await this.rentalRepository.create({ car_id, user_id, expected_return_date })
 
-    this.carsRepository.updateAvailable(car_id, false)
+    await this.carsRepository.updateAvailable(car_id, false)
 
     return rental
   }
