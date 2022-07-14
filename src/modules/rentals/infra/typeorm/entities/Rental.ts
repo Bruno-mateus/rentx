@@ -1,11 +1,15 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 import { ColumnNumericTransformer } from '../../../../../utils/ColumnNumericTransformer';
 import { v4 as uuid } from 'uuid'
+import { Car } from '../../../../cars/infra/typeorm/entities/Car';
 @Entity('rentals')
 export class Rental {
 
   @PrimaryColumn()
   id?: string;
+  @OneToOne(() => Car)
+  @JoinColumn({ name: "car_id" })
+  car: Car
   @Column()
   car_id: string;
   @Column()
