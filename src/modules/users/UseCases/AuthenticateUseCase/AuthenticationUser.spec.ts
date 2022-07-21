@@ -33,29 +33,37 @@ describe('User authentication', () => {
     expect(login).toHaveProperty('token');
   });
   it('Should not be able to authenticate a not existent user', async () => {
+    const user: IUserRepositoryDTO = {
+      name: 'Bruno',
+      password: '12345',
+      driver_license: '213213213',
+      email: 'bruno_305@hotmail.com',
+    };
+    await createUserUseCase.execute(user);
     await expect(
       authenticateUseCase.execute({
-        email: 'false@124hotmail.com',
-        password: '123456',
+        email: 'bruno_304@hotmail.com',
+        password: '12345',
       })
-    ).rejects.toEqual(new AppError('Email or password incorrect'));
+    ).rejects.toEqual(new AppError('Email or password is incorrect'));
   });
+
   it('Should  not  able to authenticate with incorrect email or password', async () => {
     const user: IUserRepositoryDTO = {
       name: 'Bruno',
       password: '12345',
       driver_license: '213213213',
-      email: 'bruno_3205@hotmail.com',
+      email: 'bruno_305@hotmail.com',
     };
     // createUser
     await createUserUseCase.execute(user);
 
-    await expect(async () => {
+    await expect(
       // verify login
-      await authenticateUseCase.execute({
-        email: 'bruno_3205@hotmail.com',
-        password: 'user.password',
-      });
-    }).rejects.toEqual(new AppError("Email or password incorrect"));
+      authenticateUseCase.execute({
+        email: 'bruno_305@hotmail.com',
+        password: '1234',
+      })
+    ).rejects.toEqual(new AppError("Email or password is incorrect"))
   });
 });

@@ -18,15 +18,15 @@ describe('Create category controller', () => {
     INSERT INTO USERS(id, name, email,password, "admin", created_at, driver_license)
     values('${id}','admin','admin@rentx.com','${password}','true','now()','XXXXX')
   `)
-    afterAll(async () => {
-      await connection.dropDatabase()
-      await connection.close()
-    })
+  })
+  afterAll(async () => {
+    await connection.dropDatabase()
+    await connection.close()
   })
   it('should be able create a new category', async () => {
     const responseToken = await request(app).post('/sessions').send({
       email: 'admin@rentx.com',
-      session: 'admin'
+      password: 'admin'
     })
     const { token } = responseToken.body
     console.log(token)
