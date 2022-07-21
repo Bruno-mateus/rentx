@@ -5,8 +5,12 @@ import { IRentalRepository } from "../IRentalRepository";
 
 
 export class RentalsRepositoryInMemory implements IRentalRepository {
-  findById(id: string): Promise<Rental> {
-    throw new Error("Method not implemented.");
+  //find rentals by user
+  async findByUser(user_id: string): Promise<Rental[]> {
+    return this.rentals.filter((rental) => rental.user_id === user_id)
+  }
+  async findById(id: string): Promise<Rental> {
+    return this.rentals.find(rental => rental.id === id)
   }
   rentals: Rental[] = []
   //  a car that is alredy rented will not be rented again
