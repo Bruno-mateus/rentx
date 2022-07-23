@@ -29,7 +29,7 @@ describe('Create category controller', () => {
       password: 'admin'
     })
     const { token } = responseToken.body
-    console.log(token)
+
     const response = await request(app).post("/categories").send(
       {
         name: 'supertest name',

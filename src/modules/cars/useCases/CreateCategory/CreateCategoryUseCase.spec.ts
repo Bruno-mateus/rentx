@@ -36,8 +36,8 @@ describe('Create a category', () => {
       name: category.name,
       description: category.description,
     });
-    await expect(() => {
-      createCategoryUseCase.execute({
+    expect(async () => {
+      await createCategoryUseCase.execute({
         name: category.name,
         description: category.description,
       });

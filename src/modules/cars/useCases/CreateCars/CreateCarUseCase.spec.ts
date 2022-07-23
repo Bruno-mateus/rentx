@@ -38,8 +38,7 @@ describe('Create Car', () => {
         category_id: 'civic',
       },
     );
-    await expect(
-
+    await expect(async () => {
       await createCarUseCase.execute(
         {
           name: 'car2',
@@ -51,6 +50,7 @@ describe('Create Car', () => {
           category_id: 'civic',
         },
       )
+    }
     ).rejects.toEqual(new AppError("Car already exist"));
   });
 

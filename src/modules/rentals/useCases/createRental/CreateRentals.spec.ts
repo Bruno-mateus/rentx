@@ -64,7 +64,7 @@ describe('Create Rental', () => {
         user_id: 'id_1230',
         expected_return_date: dayjs().toDate()
       })
-    ).rejects.toEqual(new AppError("Invalid return time"))
+    ).rejects.toEqual(new AppError("minimum allowable rental date is 24 hours"))
 
   })
 })

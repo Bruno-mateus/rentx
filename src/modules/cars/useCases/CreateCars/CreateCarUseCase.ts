@@ -34,7 +34,7 @@ export class CreateCarUseCase {
   ): Promise<Car> {
     const licensePlateArealdyExists = await this.carsRepository.findByLicensePlate(license_plate);
 
-    if (licensePlateArealdyExists) throw new AppError('car not available');
+    if (licensePlateArealdyExists) throw new AppError('Car already exist');
 
     const car = await this.carsRepository.create({
       name,
