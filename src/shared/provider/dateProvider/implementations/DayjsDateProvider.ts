@@ -7,6 +7,7 @@ dayjs.extend(utc)
 
 export class DayjsDateProvider implements IDateProvider {
 
+
   dateNow() {
     return dayjs().toDate()
   }
@@ -26,5 +27,8 @@ export class DayjsDateProvider implements IDateProvider {
     const endDateUTC = this.convertToUTC(endDay)
 
     return dayjs(endDateUTC).diff(startDateUTC, 'days')
+  }
+  addDay(days: number): Date {
+    return dayjs().add(days, "days").toDate()
   }
 }
