@@ -4,6 +4,7 @@ import { IUserRepository } from '../../repositories/implementations/IUserReposit
 import { IUserTokensRepository } from '../../repositories/implementations/IUserTokensRepository'
 import { v4 as uuid } from 'uuid'
 import { IDateProvider } from '../../../../shared/provider/IDateProvider'
+import { IMailProvider } from '../../../../shared/provider/emailProvider/IMailProvider'
 @injectable()
 export class SendForogotPassWordUseCase {
   constructor(
@@ -12,7 +13,9 @@ export class SendForogotPassWordUseCase {
     @inject("UserTokensRepository")
     private userTokensRepository: IUserTokensRepository,
     @inject("DayjsDateProvider")
-    private dayjsDateProvider: IDateProvider
+    private dayjsDateProvider: IDateProvider,
+    @inject("EtherealMalProvider")
+    private mailProvider: IMailProvider
   ) { }
   async execute(email: string) {
     const user = await this.userRepository.findByEmail(email)
@@ -21,12 +24,19 @@ export class SendForogotPassWordUseCase {
 
     const token = uuid()
 
-    this.userTokensRepository.create(
+    await this.userTokensRepository.create(
       {
         user_id: user.id,
         refresh_token: uuid(),
         expires_date: this.dayjsDateProvider.addHour(3)
       }
     )
+
+    await this.mailProvider.sendMail(
+      email,
+      "Recuperação de senha",
+      `O link para o reset é ${token}`
+    )
+
   }
 }
