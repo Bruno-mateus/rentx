@@ -5,6 +5,8 @@ import { IUserTokensRepository } from '../../repositories/implementations/IUserT
 import { v4 as uuid } from 'uuid'
 import { IDateProvider } from '../../../../shared/provider/IDateProvider'
 import { IMailProvider } from '../../../../shared/provider/emailProvider/IMailProvider'
+import { resolve } from 'path'
+
 @injectable()
 export class SendForogotPassWordUseCase {
   constructor(
@@ -20,6 +22,8 @@ export class SendForogotPassWordUseCase {
   async execute(email: string) {
     const user = await this.userRepository.findByEmail(email)
 
+    const templatePath = resolve(__dirname, '..', '..', 'views', 'emails', 'index.hbs')
+
     if (!user) throw new AppError('user does not exists')
 
     const token = uuid()
@@ -32,10 +36,16 @@ export class SendForogotPassWordUseCase {
       }
     )
 
+    const variables = {
+      name: user.name,
+      link: `${process.env.FORGOT_MAIL_URL}${token}`
+    }
+
     await this.mailProvider.sendMail(
       email,
-      "Recuperação de senha",
-      `O link para o reset é ${token}`
+      'reset password',
+      variables,
+      templatePath
     )
 
   }
