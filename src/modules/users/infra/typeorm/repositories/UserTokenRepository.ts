@@ -9,6 +9,11 @@ export class UserTokenRepository implements IUserTokensRepository {
     this.repository = getRepository(UserTokens)
 
   }
+  async findByRefreshToken(refresh_token: string): Promise<UserTokens> {
+    const findRefreshToken = await this.repository.findOne(refresh_token)
+
+    return findRefreshToken
+  }
 
   async findByUserIdAndToken(user_id: string, refresh_token: string): Promise<UserTokens> {
     return await this.repository.findOne({ user_id, refresh_token })
